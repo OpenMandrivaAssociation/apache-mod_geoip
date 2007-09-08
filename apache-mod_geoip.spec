@@ -6,7 +6,7 @@
 Summary:	Mod_geoip is a module for apache (2.0.x) to use the GeoIP database
 Name:		apache-%{mod_name}
 Version:	1.1.8
-Release:	%mkrel 2
+Release:	%mkrel 3
 Group:		System/Servers
 License:	GPL
 URL:		http://www.maxmind.com/app/mod_geoip 
