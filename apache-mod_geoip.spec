@@ -23,7 +23,6 @@ Requires:	geoip
 BuildRequires:	GeoIP-devel
 BuildRequires:	libtool 
 Epoch:		1
-BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 
 %description
 GeoIP is a C library that enables the user to find the country that any IP
