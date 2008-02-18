@@ -3,7 +3,7 @@
 %define mod_conf A10_%{mod_name}.conf
 %define mod_so %{mod_name}.so
 
-Summary:	Mod_geoip is a module for apache (2.0.x) to use the GeoIP database
+Summary:	Module for apache (2.0.x) to use the GeoIP database
 Name:		apache-%{mod_name}
 Version:	1.2.0
 Release:	%mkrel 1
