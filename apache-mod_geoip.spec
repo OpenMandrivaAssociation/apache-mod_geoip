@@ -5,11 +5,11 @@
 
 Summary:	Module for apache (2.0.x) to use the GeoIP database
 Name:		apache-%{mod_name}
-Version:	1.2.0
-Release:	%mkrel 3
+Version:	1.2.3
+Release:	%mkrel 1
 Group:		System/Servers
 License:	GPL
-URL:		http://www.maxmind.com/app/mod_geoip 
+URL:		http://www.maxmind.com/app/mod_geoip
 Source0:	http://www.maxmind.com/download/geoip/api/mod_geoip2/%{mod_name}2_%{version}.tar.gz
 Source1:	%{mod_conf}
 Requires(pre): rpm-helper
@@ -50,7 +50,7 @@ cp %{SOURCE1} %{mod_conf}
 %{_sbindir}/apxs -c mod_geoip.c -L%{_libdir} -I%{_includedir} -lGeoIP 
 
 %install
-[ "%{buildroot}" != "/" ] && rm -rf %{buildroot}
+rm -rf %{buildroot}
 
 install -d %{buildroot}%{_libdir}/apache-extramodules
 install -d %{buildroot}%{_sysconfdir}/httpd/modules.d
@@ -71,7 +71,7 @@ if [ "$1" = "0" ]; then
 fi
 
 %clean
-[ "%{buildroot}" != "/" ] && rm -rf %{buildroot}
+rm -rf %{buildroot}
 
 %files
 %defattr(-,root,root)
