@@ -5,8 +5,8 @@
 
 Summary:	Module for apache (2.0.x) to use the GeoIP database
 Name:		apache-%{mod_name}
-Version:	1.2.3
-Release:	%mkrel 2
+Version:	1.2.4
+Release:	%mkrel 1
 Group:		System/Servers
 License:	GPL
 URL:		http://www.maxmind.com/app/mod_geoip
@@ -20,7 +20,7 @@ Requires:	apache-conf >= 2.2.0
 Requires:	apache >= 2.2.0
 BuildRequires:	apache-devel >= 2.2.0
 Requires:	geoip
-BuildRequires:	GeoIP-devel
+BuildRequires:	GeoIP-devel >= 1.4.0
 BuildRequires:	libtool 
 Epoch:		1
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
