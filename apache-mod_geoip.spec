@@ -41,7 +41,7 @@ See INSTALL file in document directory for how to use it.
 
 %prep
 
-%setup -q -n %{mod_name}2_%{version}
+%setup -q -n %{mod_name}2-%{version}
 
 cp %{SOURCE1} %{mod_conf}
 
