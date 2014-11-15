@@ -5,13 +5,12 @@
 
 Summary:	Module for apache (2.0.x) to use the GeoIP database
 Name:		apache-%{mod_name}
-Version:	1.2.5
-Release:	%mkrel 7
+Version:	1.2.9
+Release:	1
 Group:		System/Servers
 License:	GPL
 URL:		http://www.maxmind.com/app/mod_geoip
-Source0:	http://www.maxmind.com/download/geoip/api/mod_geoip2/%{mod_name}2_%{version}.tar.gz
-Source1:	%{mod_conf}
+Source0:	https://github.com/maxmind/geoip-api-mod_geoip2/archive/%{version}.tar.gz
 Requires(pre): rpm-helper
 Requires(postun): rpm-helper
 Requires(pre):	apache-conf >= 2.2.0
@@ -20,10 +19,9 @@ Requires:	apache-conf >= 2.2.0
 Requires:	apache >= 2.2.0
 BuildRequires:	apache-devel >= 2.2.0
 Requires:	geoip
-BuildRequires:	GeoIP-devel >= 1.4.0
+BuildRequires:	pkgconfig(geoip)
 BuildRequires:	libtool 
 Epoch:		1
-BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 
 %description
 GeoIP is a C library that enables the user to find the country that any IP
@@ -41,40 +39,24 @@ See INSTALL file in document directory for how to use it.
 
 %prep
 
-%setup -q -n %{mod_name}2_%{version}
+%setup -qn geoip-api-mod_geoip2-%{version}
 
-cp %{SOURCE1} %{mod_conf}
+cat >%{mod_conf} <<'EOF'
+LoadModule geoip_module %{_libdir}/apache-extramodules/%{mod_so}
+EOF
 
 %build
-
-%{_sbindir}/apxs -c mod_geoip.c -L%{_libdir} -I%{_includedir} -lGeoIP 
+%{_bindir}/apxs -c mod_geoip.c `pkg-config --cflags geoip` `pkg-config --libs geoip`
 
 %install
-rm -rf %{buildroot}
-
 install -d %{buildroot}%{_libdir}/apache-extramodules
 install -d %{buildroot}%{_sysconfdir}/httpd/modules.d
 
 install -m0755 .libs/%{mod_so} %{buildroot}%{_libdir}/apache-extramodules/
 install -m0644 %{mod_conf} %{buildroot}%{_sysconfdir}/httpd/modules.d/
 
-%post
-if [ -f %{_var}/lock/subsys/httpd ]; then
-    %{_initrddir}/httpd restart 1>&2;
-fi
-
-%postun
-if [ "$1" = "0" ]; then
-    if [ -f %{_var}/lock/subsys/httpd ]; then
-	%{_initrddir}/httpd restart 1>&2
-    fi
-fi
-
-%clean
-rm -rf %{buildroot}
-
 %files
 %defattr(-,root,root)
-%doc INSTALL README Changes README.php 
+%doc README.md Changes README.php 
 %attr(0644,root,root) %config(noreplace) %{_sysconfdir}/httpd/modules.d/%{mod_conf}
 %attr(0755,root,root) %{_libdir}/apache-extramodules/%{mod_so}
