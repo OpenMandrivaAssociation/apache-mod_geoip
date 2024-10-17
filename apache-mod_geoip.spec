@@ -9,7 +9,7 @@ Version:	1.2.10
 Release:	1
 Group:		System/Servers
 License:	GPL
-URL:		http://www.maxmind.com/app/mod_geoip
+URL:		https://www.maxmind.com/app/mod_geoip
 Source0:	https://github.com/maxmind/geoip-api-mod_geoip2/archive/%{version}.tar.gz
 Requires(pre): rpm-helper
 Requires(postun): rpm-helper
